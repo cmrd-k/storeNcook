@@ -6,7 +6,7 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/tabs/tabs.routes').then((m) => m.routes),
   },
   {
-    path: 'view-recipes',
-    loadComponent: () => import('./pages/view-recipes/view-recipes.page').then( m => m.ViewRecipesPage)
+    path: 'view-recipe',
+    loadComponent: () => import('./pages/view-recipe/view-recipe.page').then( m => m.ViewRecipePage)
   },
 ];
