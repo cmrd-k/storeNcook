@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TabsPage } from './tabs.page';
 
 describe('TabsPage', () => {
+  
   let component: TabsPage;
   let fixture: ComponentFixture<TabsPage>;
 
