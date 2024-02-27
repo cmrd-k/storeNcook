@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "food-db55a": {
+      "hosting": {
+        "app": [
+          "food-db55a"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "food-db55a"
+  }
+}

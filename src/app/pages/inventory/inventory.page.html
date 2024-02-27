@@ -10,9 +10,17 @@
 
   <ion-item>
     <ion-label>Location</ion-label>
-    <ion-select value="home" multiple="false" placeholder="Select Location">
+    <ion-select value="home" interface="popover" multiple="false" placeholder="Select Location">
       <ion-select-option value="home">Home</ion-select-option>
       <ion-select-option value="hawaii">Parents</ion-select-option>
     </ion-select>
   </ion-item>
+  <ul>
+    <li class="text" *ngFor="let item of items$ | async">
+      {{item.name}}
+    </li>
+  </ul>  
+  <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
+    Click me
+  </ion-button>
 </ion-content>
