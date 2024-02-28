@@ -19,25 +19,14 @@
   <ion-searchbar placeholder="Filter Recipes" inputmode="decimal" type="decimal"  [debounce]="250" showCancelButton="always"></ion-searchbar>
 
   <ion-list>
-  <ion-card>
+  <ion-card *ngFor="let recipe of recipes | async">
     <ion-card-header>
-      <ion-card-title>Card Title</ion-card-title>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+      <ion-card-title>{{recipe.name}}</ion-card-title>
+      <ion-card-subtitle>{{recipe.category}}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      Here's a small text description for the card content. Nothing more, nothing less.
+      {{recipe.instructions}}
     </ion-card-content>
   </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Card Title</ion-card-title>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      Here's a small text description for the card content. Nothing more, nothing less.
-    </ion-card-content>
-  </ion-card>
-
-</ion-list>
+</ion-list> 
 </ion-content>
