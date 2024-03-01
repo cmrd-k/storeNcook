@@ -1,8 +1,12 @@
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, LocationStrategy } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { Ingredients } from 'src/app/models/interfaces';
+import { Ingredient, Recipe } from 'src/app/models/interfaces';
+import { RecipeService } from 'src/app/services/recipe.service';
+import { ModalController } from '@ionic/angular';
+
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-recipe',
@@ -13,17 +17,33 @@ import { Ingredients } from 'src/app/models/interfaces';
   imports: [IonicModule, CommonModule, FormsModule]
 })
 export class ViewRecipePage implements OnInit {
-  ingredients: Ingredients[] =[{name: "Tomaten",amount: 110, unit: "g"}];
-  constructor() { }
+  ingredients: Ingredient[] =[{name: "Tomaten",amount: 110, unit: "g"}];
+  recipe: Recipe = {author: "admin", name: "", category: "", ingredients: this.ingredients, instructions: [""]}
+
+  constructor(private recService: RecipeService, private modalCtrl: ModalController, private router: Router, public locationStrategy: LocationStrategy) { }
 
   ngOnInit() {
   }
   addIngredient(){
-    let blankIngredient:Ingredients = {name: "", amount: 0, unit: ""};
+    let blankIngredient:Ingredient = {name: "", amount: 0, unit: ""};
     this.ingredients.push(blankIngredient);
     console.log(this.ingredients);
   }
   removeIngredient(id: number){
     this.ingredients.splice(id, 1)
+  }
+  createRecipe(){
+    console.log(this.recipe);
+    this.recService.createRecipe(this.recipe);
+  }
+
+  cancel() {
+    return this.modalCtrl.dismiss(null, 'cancel');
+  }
+  confirm() {
+    return this.modalCtrl.dismiss(this.createRecipe(), 'confirm');
+  }
+  navBack(){
+    this.locationStrategy.back()
   }
 }

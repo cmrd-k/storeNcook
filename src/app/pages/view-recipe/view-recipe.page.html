@@ -1,20 +1,23 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="this.locationStrategy.back()"></ion-back-button>
+    </ion-buttons>
     <ion-title>View Recipe</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-input placeholder="name"></ion-input>
+  <ion-input placeholder="name" [(ngModel)]="recipe.name"></ion-input>
   <ion-list>
     <ion-label>Category</ion-label>
     <ion-label>User</ion-label>
     <ion-text><h2>Ingredients</h2></ion-text>
     <ion-list>
-      <ion-item *ngFor="let i of ingredients; index as id">
-        <ion-input placeholder="ingredient" [value]="i.name"></ion-input> 
-        <ion-input placeholder="amount" pattern="off" [value]="i.amount"></ion-input> 
-        <ion-input placeholder="unit" [value]="i.unit"></ion-input>
+      <ion-item *ngFor="let i of recipe.ingredients; index as id">
+        <ion-input placeholder="ingredient" [(ngModel)]="recipe.ingredients[id].name"></ion-input> 
+        <ion-input placeholder="amount" pattern="off" [(ngModel)]="recipe.ingredients[id].amount"></ion-input> 
+        <ion-input placeholder="unit" [(ngModel)]="recipe.ingredients[id].unit"></ion-input>
         <ion-button (click)="removeIngredient(id)" color="danger" shape="round">-</ion-button>
       </ion-item>
         <ion-item>
@@ -23,7 +26,8 @@
     </ion-list>
     <ion-text><h2>Instructions</h2></ion-text>
     <ion-list>
-      <ion-item><ion-textarea placeholder="Instructions" [autoGrow]="true"></ion-textarea></ion-item>
+      <ion-item><ion-textarea placeholder="Instructions" [autoGrow]="true" [(ngModel)]="recipe.instructions[0]"></ion-textarea></ion-item>
     </ion-list>
   </ion-list>
+  <ion-button (click)="createRecipe()">Create Recipe</ion-button>
 </ion-content>

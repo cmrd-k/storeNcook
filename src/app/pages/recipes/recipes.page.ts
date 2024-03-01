@@ -6,6 +6,8 @@ import { inject } from '@angular/core';
 import { DocumentData, Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { Recipe } from 'src/app/models/interfaces';
 
 @Component({
   selector: 'app-tab1',
@@ -16,12 +18,29 @@ import { CommonModule } from '@angular/common';
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule],
 })
 export class Tab1Page {
-  recipes: Observable<any[]> = this.fetchRecipes();
+  allRecipes: Recipe[] = []
+  showRecipes: Recipe[] = [];
 
-  constructor(private recService: RecipeService) {}
+  constructor(private recService: RecipeService, private router: Router) {
+    this.fetchRecipes();
+  }
 
   fetchRecipes(){
-    let recipeList = this.recService.getAllRecipes();
-    return recipeList;
+    let recipeList: Recipe[] = [];
+    this.recService.getAllRecipes().subscribe((list)=>{
+      this.showRecipes = list;
+      this.allRecipes = list;
+    });
+  }
+
+  openCreateRecipe(){
+    this.router.navigate(['/view-recipe'])
+  }
+
+  async searchName(event: any){
+    console.log(event.target.value);
+    this.recService.queryRecipes(event.target.value).then((value) => {
+      this.showRecipes = value;
+    });
   }
 }

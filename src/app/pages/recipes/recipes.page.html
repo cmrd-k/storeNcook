@@ -16,10 +16,10 @@
     </ion-segment-button>
   </ion-segment>
 
-  <ion-searchbar placeholder="Filter Recipes" inputmode="decimal" type="decimal"  [debounce]="250" showCancelButton="always"></ion-searchbar>
+  <ion-searchbar placeholder="Filter Recipes" inputmode="text" type="text"  [debounce]="250" showCancelButton="always" (ionChange)="searchName($event)" enterkeyhint='go'></ion-searchbar>
 
   <ion-list>
-  <ion-card *ngFor="let recipe of recipes | async">
+  <ion-card *ngFor="let recipe of showRecipes">
     <ion-card-header>
       <ion-card-title>{{recipe.name}}</ion-card-title>
       <ion-card-subtitle>{{recipe.category}}</ion-card-subtitle>
@@ -30,8 +30,9 @@
   </ion-card>
 </ion-list> 
 <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-  <ion-fab-button>
+  <ion-fab-button [routerLink]="['view-recipe']" (click)="openCreateRecipe()">
     +
   </ion-fab-button>
 </ion-fab>
+<ion-button></ion-button>
 </ion-content>
