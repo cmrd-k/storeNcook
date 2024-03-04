@@ -4,5 +4,5 @@ export interface Ingredient{
     unit: string
 }
 export interface Recipe{
-    author: string, category: string, name: string, ingredients: Ingredient[], instructions: string[]
+    author: string, category: string, name: string, ingredients: Ingredient[], instructions: string[], searchTerm : string[]
 }

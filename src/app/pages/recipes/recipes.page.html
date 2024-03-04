@@ -17,6 +17,11 @@
   </ion-segment>
 
   <ion-searchbar placeholder="Filter Recipes" inputmode="text" type="text"  [debounce]="250" showCancelButton="always" (ionChange)="searchName($event)" enterkeyhint='go'></ion-searchbar>
+  <ion-label>Search by </ion-label>
+  <ion-radio-group value="name" mode="md">
+    <ion-radio value="name" (ionFocus)="radioIngredientSelect()">Ingredient</ion-radio>
+    <ion-radio value="ingredient" (ionFocus)="radioNameSelected()">Name</ion-radio>
+  </ion-radio-group>
 
   <ion-list>
   <ion-card *ngFor="let recipe of showRecipes">

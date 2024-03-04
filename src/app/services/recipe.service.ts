@@ -24,8 +24,17 @@ export class RecipeService {
   async createRecipe(recipe:Recipe){
     await addDoc(collection(this.firestore, 'recipes'), recipe);
   }
-  async queryRecipes(term: String){
+  async queryRecipesByName(term: String){
     let q = query(collection(this.firestore, "recipes"), where("name", ">=", term), where ("name", "<=", term + '\uf8ff'));
+    let results = await getDocs(q);
+    let data: any[] = [];
+    results.forEach((res) => {
+      data.push(res.data());
+    });
+    return data;
+  }
+  async queryRecipesByIngredient(term: String){
+    let q = query(collection(this.firestore, "recipes"), where("searchTerm", "array-contains", term));
     let results = await getDocs(q);
     let data: any[] = [];
     results.forEach((res) => {

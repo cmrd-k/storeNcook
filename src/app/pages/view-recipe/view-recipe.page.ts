@@ -18,7 +18,8 @@ import { Router } from '@angular/router';
 })
 export class ViewRecipePage implements OnInit {
   ingredients: Ingredient[] =[{name: "Tomaten",amount: 110, unit: "g"}];
-  recipe: Recipe = {author: "admin", name: "", category: "", ingredients: this.ingredients, instructions: [""]}
+  recipe: Recipe = {author: "admin", name: "", category: "", ingredients: this.ingredients, instructions: [""], searchTerm: []}
+  
 
   constructor(private recService: RecipeService, private modalCtrl: ModalController, private router: Router, public locationStrategy: LocationStrategy) { }
 
@@ -34,6 +35,9 @@ export class ViewRecipePage implements OnInit {
   }
   createRecipe(){
     console.log(this.recipe);
+    this.ingredients.forEach((ing)=>{
+      this.recipe.searchTerm.push(ing.name);
+    })
     this.recService.createRecipe(this.recipe);
   }
 

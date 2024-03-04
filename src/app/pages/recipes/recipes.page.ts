@@ -20,6 +20,7 @@ import { Recipe } from 'src/app/models/interfaces';
 export class Tab1Page {
   allRecipes: Recipe[] = []
   showRecipes: Recipe[] = [];
+  searchByName: Boolean = true;
 
   constructor(private recService: RecipeService, private router: Router) {
     this.fetchRecipes();
@@ -38,9 +39,29 @@ export class Tab1Page {
   }
 
   async searchName(event: any){
-    console.log(event.target.value);
-    this.recService.queryRecipes(event.target.value).then((value) => {
-      this.showRecipes = value;
-    });
+    if(this.searchByName){
+      console.log("search By Name: ");
+      console.log(event);
+      this.recService.queryRecipesByName(event.target.value).then((value) => {
+        this.showRecipes = value;
+      });
+    }else{
+      console.log("search By Ingredient: ");
+      console.log(event);
+      this.recService.queryRecipesByIngredient(event.target.value).then((value) => {
+        this.showRecipes = value;
+      });
+    }
+  }
+  async searchIngredient(event: any){
+    
+  }
+  radioIngredientSelect(){
+    this.searchByName = false;
+    console.log(this.searchByName);
+  }
+  radioNameSelected(){
+    this.searchByName = true;
+    console.log(this.searchByName);
   }
 }
