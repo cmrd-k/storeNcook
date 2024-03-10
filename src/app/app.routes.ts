@@ -9,4 +9,8 @@ export const routes: Routes = [
     path: 'view-recipe',
     loadComponent: () => import('./pages/view-recipe/view-recipe.page').then( m => m.ViewRecipePage)
   },
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
+  },
 ];

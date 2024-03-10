@@ -7,6 +7,7 @@ import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { Auth, User, user } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs';
+import { getApp } from '@angular/fire/app';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class AppComponent {
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {
         //handle user state changes here. Note, that user will be null if there is no currently logged in user.
      console.log(aUser);
+     console.log(getApp())
     })
 
     

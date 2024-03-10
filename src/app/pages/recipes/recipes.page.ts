@@ -37,6 +37,9 @@ export class Tab1Page {
   openCreateRecipe(){
     this.router.navigate(['/view-recipe'])
   }
+  openLogin(){
+    this.router.navigate(['login'])
+  }
 
   async searchName(event: any){
     if(this.searchByName){

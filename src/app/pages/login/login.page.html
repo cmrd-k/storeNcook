@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="firebaseui-auth-container"></div>
+  <form (ngSubmit)="login()">
+  
+    <ion-item>
+      <ion-input type="email" placeholder="e-mail" formControlName="email"></ion-input>
+      <ion-note slot="error" *ngIf="(email?.dirty||email?.touched) && email?.errors">Please enter a valid Email</ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-input type="password" placeholder="password" formControlName="password"></ion-input>
+      <ion-note slot="error" *ngIf="(password?.dirty||password?.touched) && password?.errors">Password needs at least 6 characters</ion-note>
+    </ion-item>
+
+    <ion-button type="submit" [disabled]="!credentials.valid" (click)="register()">Register</ion-button>
+    <ion-button type="submit" [disabled]="!credentials.valid">Login</ion-button>
+  </form>
+</ion-content>
