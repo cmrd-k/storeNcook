@@ -7,7 +7,8 @@ import { DocumentData, Firestore, collection, collectionData } from '@angular/fi
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Recipe } from 'src/app/models/interfaces';
+import { Recipe, RecipeCollection } from 'src/app/models/interfaces';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-tab1',
@@ -18,7 +19,7 @@ import { Recipe } from 'src/app/models/interfaces';
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule],
 })
 export class Tab1Page {
-  allRecipes: Recipe[] = []
+  allRecipes: Recipe[] = [];
   showRecipes: Recipe[] = [];
   searchByName: Boolean = true;
 
@@ -27,10 +28,20 @@ export class Tab1Page {
   }
 
   fetchRecipes(){
-    let recipeList: Recipe[] = [];
+    let data;
     this.recService.getAllRecipes().subscribe((list)=>{
-      this.showRecipes = list;
-      this.allRecipes = list;
+      let data = list;
+      console.log("recipeCollection data from Firestore: ")
+      console.log(data)
+      data.forEach((recipeCollection)=>{
+        recipeCollection.recipes.forEach((recipe: any)=>{
+          console.log(recipe)
+          this.allRecipes.push(recipe);
+          this.showRecipes = this.allRecipes;
+          console.log("allRecipes")
+          console.log(this.allRecipes)
+        })
+      })
     });
   }
 
@@ -44,18 +55,14 @@ export class Tab1Page {
   async searchName(event: any){
     if(this.searchByName){
       console.log("search By Name: ");
-      console.log(event);
-      this.recService.queryRecipesByName(event.target.value).then((value) => {
-        this.showRecipes = value;
-      });
+      this.showRecipes = this.allRecipes.filter(r => String(r.name).startsWith(event.target.value));
     }else{
       console.log("search By Ingredient: ");
-      console.log(event);
-      this.recService.queryRecipesByIngredient(event.target.value).then((value) => {
-        this.showRecipes = value;
-      });
+      this.showRecipes = this.allRecipes.filter(r => r.ingredients.some(i => i.name.includes(event.target.value)));
+      console.log(this.showRecipes);
     }
   }
+
   async searchIngredient(event: any){
     
   }

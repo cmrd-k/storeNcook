@@ -7,6 +7,7 @@ import { RecipeService } from 'src/app/services/recipe.service';
 import { ModalController } from '@ionic/angular';
 
 import { Router } from '@angular/router';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-view-recipe',
@@ -18,12 +19,17 @@ import { Router } from '@angular/router';
 })
 export class ViewRecipePage implements OnInit {
   ingredients: Ingredient[] =[{name: "Tomaten",amount: 110, unit: "g"}];
-  recipe: Recipe = {author: "admin", name: "", category: "", ingredients: this.ingredients, instructions: [""], searchTerm: []}
+  moment = dayjs();
+  recipe: Recipe = {author: "admin", name: "", category: "", ingredients: this.ingredients, instructions: [""], searchTerm: [], dateTs: this.moment.unix()}
   
 
-  constructor(private recService: RecipeService, private modalCtrl: ModalController, private router: Router, public locationStrategy: LocationStrategy) { }
 
-  ngOnInit() {
+  constructor(private recService: RecipeService, private modalCtrl: ModalController, private router: Router, public locationStrategy: LocationStrategy) {
+  }
+
+  ngOnInit(
+  ) {
+
   }
   addIngredient(){
     let blankIngredient:Ingredient = {name: "", amount: 0, unit: ""};

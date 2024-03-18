@@ -1,20 +1,17 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signOut, getAuth} from '@angular/fire/auth';
-import { signInWithEmailAndPassword } from '@firebase/auth';
+import { Auth, createUserWithEmailAndPassword, signOut, getAuth, authState} from '@angular/fire/auth';
+import { signInWithEmailAndPassword, onAuthStateChanged, User } from '@firebase/auth';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   user: any;
-  private auth: Auth = inject(Auth);
+  auth: Auth = inject(Auth);
 
   constructor() {
   console.log("auth");
-  }
-
-  getUser(){
-    
   }
 
   async register ({email, password}:{email:string, password:string}){
